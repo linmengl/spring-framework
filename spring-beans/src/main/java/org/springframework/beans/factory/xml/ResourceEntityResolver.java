@@ -29,6 +29,7 @@ import org.xml.sax.SAXException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.lang.Nullable;
+import sun.rmi.runtime.Log;
 
 /**
  * EntityResolver implementation that tries to resolve entity references

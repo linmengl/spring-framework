@@ -44,6 +44,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * <p>Note that extended bean factories might support further scopes.
 	 * @see #setScope
 	 */
+	//默认只提供sington和prototype两种
 	String SCOPE_SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON;
 
 	/**
@@ -101,6 +102,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * @see #setFactoryBeanName
 	 * @see #setFactoryMethodName
 	 */
+	//设置bean的类名称，将来要通过反射来生成实例
 	void setBeanClassName(@Nullable String beanClassName);
 
 	/**
@@ -164,11 +166,14 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * if the specified bean is not marked as an autowire candidate. As a consequence,
 	 * autowiring by name will nevertheless inject a bean if the name matches.
 	 */
+	//设置该bean是否可以注入到其他bean中，只对根据类型注入有效，
+	//如果根据名称注入，即使这边设置了false，也是可以的
 	void setAutowireCandidate(boolean autowireCandidate);
 
 	/**
 	 * Return whether this bean is a candidate for getting autowired into some other bean.
 	 */
+	//该bean是否可以注册到其他bean
 	boolean isAutowireCandidate();
 
 	/**
@@ -232,6 +237,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * <p>The returned instance can be modified during bean factory post-processing.
 	 * @return the MutablePropertyValues object (never {@code null})
 	 */
+	//bean中的属性值
 	MutablePropertyValues getPropertyValues();
 
 	/**

@@ -123,6 +123,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	@Override
 	protected final void refreshBeanFactory() throws BeansException {
 		if (hasBeanFactory()) {
+			//销毁bean，关闭久的BeanFactory
 			destroyBeans();
 			closeBeanFactory();
 		}
@@ -133,7 +134,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			beanFactory.setSerializationId(getId());
 			//定制BeanFactory
 			customizeBeanFactory(beanFactory);
-			//初始化DocumentReader，并进行XML文件读取及解析
+			//初始化DocumentReader，并进行XML文件读取及解析。加载bean到BeanFactory中
 			loadBeanDefinitions(beanFactory);
 			synchronized (this.beanFactoryMonitor) {
 				this.beanFactory = beanFactory;
@@ -227,9 +228,11 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 */
 	protected void customizeBeanFactory(DefaultListableBeanFactory beanFactory) {
 		if (this.allowBeanDefinitionOverriding != null) {
+			//是否允许BeanDefinition覆盖。。不同配置文件定义的bean出现id或那么相同，会发生覆盖
 			beanFactory.setAllowBeanDefinitionOverriding(this.allowBeanDefinitionOverriding);
 		}
 		if (this.allowCircularReferences != null) {
+			//是否允许循环依赖
 			beanFactory.setAllowCircularReferences(this.allowCircularReferences);
 		}
 	}
